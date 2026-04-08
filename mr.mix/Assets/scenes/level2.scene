@@ -52,7 +52,9 @@
           "__enabled": true,
           "Flags": 0,
           "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 2",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
           "NextLevelScenePath": "scenes/level3.scene",
           "OnComponentDestroy": null,
@@ -65,6 +67,7 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 60,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
           "WinAutoNextDelaySeconds": 5,
           "WordPool": [
             "pepper",
@@ -118,8 +121,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -160,11 +168,13 @@
         },
         {
           "__type": "MrMix2.MrMixTypingChallengeHud",
-          "__guid": "0f646bd8-ccaa-403a-937a-0f6d767b5721",
+          "__guid": "00084a9c-5db3-4fc5-aafc-4b8970a56f84",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 2",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
           "NextLevelScenePath": "scenes/level3.scene",
           "OnComponentDestroy": null,
@@ -177,7 +187,8 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 60,
-          "WinAutoNextDelaySeconds": 5,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
+          "WinAutoNextDelaySeconds": 9,
           "WordPool": [
             "pepper",
             "banana",
@@ -216,12 +227,16 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "e9e7b4d6-d76b-43c4-a92e-e64bbe346c0d"
+          "$blob": "da26eeab-9a56-4183-b3f1-d7f5a3eddca9"
         }
       }
     }

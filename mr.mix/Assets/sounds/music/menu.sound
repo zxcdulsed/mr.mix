@@ -44,8 +44,8 @@
     }
   ],
   "DefaultMixer": {
-    "Name": "unknown",
-    "Id": "00000000-0000-0000-0000-000000000000"
+    "Name": "music",
+    "Id": "e774a735-4e55-439c-aa90-7acbc7e6ec21"
   },
   "__references": [],
   "__version": 1

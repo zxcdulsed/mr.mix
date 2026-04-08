@@ -18,15 +18,20 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	}
 
 	// Конфинги
-	[Property] public string BackgroundTexture { get; set; } = "/ui/images/mrmix_clean.png"; // Сам мистер Микс
+	[Property] public string BackgroundTexture { get; set; } = "/ui/images/mr_mix.png"; // Сам мистер Микс
 
 	[Property] public float TimeLimitSeconds { get; set; } = 60f; //Это время на буквы
 	[Property] public int WordsToWin { get; set; } = 5; //Это скольско букв нужно напичатать
 	[Property] public string LevelLabel { get; set; } = "Level 1"; //Левелы или же уровни, и так понятно
-	[Property] public float WinAutoNextDelaySeconds { get; set; } = 5f; // Время на следующий уровень
+	[Property] public float WinAutoNextDelaySeconds { get; set; } = 9f; // Время на следующий уровень
 	[Property] public string NextLevelScenePath { get; set; } = "scenes/level2.scene"; //Следующий уровень
 	[Property] public string RetryScenePath { get; set; } = "scenes/level1.scene"; //Уровень для проигрыша
 	[Property] public string MainMenuScenePath { get; set; } = "scenes/mainmenu.scene"; //Меню после проигрыша или победы
+
+	[Property] public string TypeSoundEvent { get; set; } = "sounds/music/snd_type.sound"; //звук пичатания
+	[Property] public string MusicEvent { get; set; } = "sounds/music/levels.sound"; // Песня фоновая
+	[Property] public string HappySoundEvent { get; set; } = "sounds/music/happy.sound";   // Песня фоновая для победы нашей или вашей
+	[Property] public string LossSoundEvent { get; set; } = "sounds/music/loss.sound";     // Песня фоновая для поражения
 
 	//Сам набор слов
 	[Property] public string[] WordPool { get; set; } =
@@ -51,6 +56,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 
 	private Image _bg;
 	private TypingOverlayPanel _overlay;
+	private SoundHandle? _music;
 
 	// лист кнопок
 	private static readonly string[] LetterKeys =
@@ -81,7 +87,120 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	protected override void OnStart()
 	{
 		base.OnStart();
+
+		PreloadTypeSound();
+		PreloadHappySound();
+		PreloadLossSound();
+		PlayMusic();
 		Restart();
+	}
+
+	private void PreloadTypeSound()
+	{
+		if ( string.IsNullOrWhiteSpace( TypeSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( TypeSoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload type sound '{TypeSoundEvent}': {e}" );
+		}
+	}
+
+	private void PreloadHappySound()
+	{
+		if ( string.IsNullOrWhiteSpace( HappySoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( HappySoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload happy sound '{HappySoundEvent}': {e}" );
+		}
+	}
+
+	private void PreloadLossSound()
+	{
+		if ( string.IsNullOrWhiteSpace( LossSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( LossSoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload loss sound '{LossSoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayTypeSound()
+	{
+		if ( string.IsNullOrWhiteSpace( TypeSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( TypeSoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play type sound '{TypeSoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayHappySound()
+	{
+		if ( string.IsNullOrWhiteSpace( HappySoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( HappySoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play happy sound '{HappySoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayLossSound()
+	{
+		if ( string.IsNullOrWhiteSpace( LossSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( LossSoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play loss sound '{LossSoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayMusic()
+	{
+		if ( string.IsNullOrWhiteSpace( MusicEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( MusicEvent );
+
+			_music?.Stop();
+			_music = Sound.Play( MusicEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play music '{MusicEvent}': {e}" );
+		}
 	}
 
 	[Button( "Restart Challenge" )]
@@ -94,6 +213,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		_winAutoNextLeft = 0f;
 		_sceneSwitchTriggered = false;
 
+		_music?.Stop();
 		PickNewWord();
 		_overlay?.Refresh();
 	}
@@ -101,6 +221,14 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
+
+		if ( _state == ChallengeState.Running )
+		{
+			if ( _music == null || !_music.IsValid || !_music.IsPlaying )
+			{
+				PlayMusic();
+			}
+		}
 
 		if ( _state == ChallengeState.Won )
 		{
@@ -160,6 +288,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		if ( got != expected )
 			return;
 
+		PlayTypeSound();
 		TypedCount++;
 
 		if ( TypedCount >= CurrentWord.Length )
@@ -189,17 +318,21 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		TypedCount = 0;
 	}
 
-	private void Success() //Победа
+	private void Success()
 	{
 		_state = ChallengeState.Won;
+		_music?.Stop();
+		PlayHappySound();
 		_winAutoNextLeft = WinAutoNextDelaySeconds;
 		OnSuccess?.Invoke();
 		Log.Info( $"[MrMixTypingChallenge] Success! {WordsCompleted}/{WordsToWin}" );
 	}
 
-	private void Fail() // Проигрыш
+	private void Fail()
 	{
 		_state = ChallengeState.Lost;
+		_music?.Stop();
+		PlayLossSound();
 		OnFail?.Invoke();
 		Log.Info( $"[MrMixTypingChallenge] Fail! {WordsCompleted}/{WordsToWin}" );
 	}

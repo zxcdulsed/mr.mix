@@ -79,8 +79,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -121,12 +126,15 @@
         },
         {
           "__type": "MrMix5.MrMixTypingChallengeHud",
-          "__guid": "f4ddb3a1-b202-4a8a-bfff-377dc1e3a585",
+          "__guid": "9915a4ab-3276-4162-840e-e688687b07a8",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 5",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
+          "MusicEvent": "sounds/music/levels.sound",
           "NextLevelScenePath": "scenes/level6.scene",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -138,7 +146,8 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 350,
-          "WinAutoNextDelaySeconds": 5,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
+          "WinAutoNextDelaySeconds": 9,
           "WordPool": [
             "pepper",
             "banana",
@@ -187,12 +196,16 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "4fb999a9-7a89-45ea-96d0-2c1200214b6e"
+          "$blob": "c4977702-e75f-45d3-b2d2-81d684d49f7d"
         }
       }
     }

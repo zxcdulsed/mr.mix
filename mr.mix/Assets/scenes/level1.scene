@@ -79,8 +79,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -120,13 +125,16 @@
           "ZIndex": 100
         },
         {
-          "__type": "MrMix2.MrMixTypingChallengeHud",
-          "__guid": "86283ee5-dad9-4f98-b71f-2ef7746675b0",
+          "__type": "MrMix1.MrMixTypingChallengeHud",
+          "__guid": "cc77db76-b4eb-4a4c-8cb8-8c53b6447e14",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 1",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
+          "MusicEvent": "sounds/music/levels.sound",
           "NextLevelScenePath": "scenes/level2.scene",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -138,7 +146,8 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 60,
-          "WinAutoNextDelaySeconds": 5,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
+          "WinAutoNextDelaySeconds": 9,
           "WordPool": [
             "pepper",
             "banana",
@@ -172,12 +181,16 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "1e3e8f44-3909-4f17-9bde-d8b0956bf568"
+          "$blob": "0cd205e7-eab2-4c08-8af6-3a62deccbe87"
         }
       }
     }

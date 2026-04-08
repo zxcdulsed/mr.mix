@@ -16,16 +16,22 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		Lost
 	}
 
-	[Property] public string BackgroundTexture { get; set; } = "/ui/images/mrmix_clean.png";
+	// Конфинги
+	[Property] public string BackgroundTexture { get; set; } = "/ui/images/mr_mix.png";
 
 	[Property] public float TimeLimitSeconds { get; set; } = 60f;
 	[Property] public int WordsToWin { get; set; } = 10;
 	[Property] public string LevelLabel { get; set; } = "Level 2";
-	[Property] public float WinAutoNextDelaySeconds { get; set; } = 5f;
+	[Property] public float WinAutoNextDelaySeconds { get; set; } = 9f;
 	[Property] public string NextLevelScenePath { get; set; } = "scenes/level3.scene";
 	[Property] public string RetryScenePath { get; set; } = "scenes/level1.scene";
 	[Property] public string MainMenuScenePath { get; set; } = "scenes/mainmenu.scene";
 
+	[Property] public string TypeSoundEvent { get; set; } = "sounds/music/snd_type.sound";
+	[Property] public string HappySoundEvent { get; set; } = "sounds/music/happy.sound";
+	[Property] public string LossSoundEvent { get; set; } = "sounds/music/loss.sound";
+
+	//Сам набор слов
 	[Property] public string[] WordPool { get; set; } =
 	{
 		"pepper", "banana", "egg", "broccoli", "strawberry", "onion", "ketchup", "lettuce", "cucumber", "tomato", "pear", "cherry", "carrot", "kiwi", "salt"
@@ -48,6 +54,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 
 	private Image _bg;
 	private TypingOverlayPanel _overlay;
+	private SoundHandle? _music;
 
 	// лист кнопок
 	private static readonly string[] LetterKeys =
@@ -78,7 +85,101 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	protected override void OnStart()
 	{
 		base.OnStart();
+
+		PreloadTypeSound();
+		PreloadHappySound();
+		PreloadLossSound();
 		Restart();
+	}
+
+	private void PreloadTypeSound()
+	{
+		if ( string.IsNullOrWhiteSpace( TypeSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( TypeSoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload type sound '{TypeSoundEvent}': {e}" );
+		}
+	}
+
+	private void PreloadHappySound()
+	{
+		if ( string.IsNullOrWhiteSpace( HappySoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( HappySoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload happy sound '{HappySoundEvent}': {e}" );
+		}
+	}
+
+	private void PreloadLossSound()
+	{
+		if ( string.IsNullOrWhiteSpace( LossSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Preload( LossSoundEvent );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to preload loss sound '{LossSoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayTypeSound()
+	{
+		if ( string.IsNullOrWhiteSpace( TypeSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( TypeSoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play type sound '{TypeSoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayHappySound()
+	{
+		if ( string.IsNullOrWhiteSpace( HappySoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( HappySoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play happy sound '{HappySoundEvent}': {e}" );
+		}
+	}
+
+	private void PlayLossSound()
+	{
+		if ( string.IsNullOrWhiteSpace( LossSoundEvent ) )
+			return;
+
+		try
+		{
+			Sound.Play( LossSoundEvent, 0f );
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[MrMixTypingChallenge] Failed to play loss sound '{LossSoundEvent}': {e}" );
+		}
 	}
 
 	[Button( "Restart Challenge" )]
@@ -91,6 +192,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		_winAutoNextLeft = 0f;
 		_sceneSwitchTriggered = false;
 
+		_music?.Stop();
 		PickNewWord();
 		_overlay?.Refresh();
 	}
@@ -128,6 +230,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 
 	private void HandleTypingInput()
 	{
+		//бекспейс
 		if ( Input.Keyboard.Pressed( "backspace" ) && TypedCount > 0 )
 		{
 			TypedCount--;
@@ -156,6 +259,7 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 		if ( got != expected )
 			return;
 
+		PlayTypeSound();
 		TypedCount++;
 
 		if ( TypedCount >= CurrentWord.Length )
@@ -188,6 +292,8 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	private void Success()
 	{
 		_state = ChallengeState.Won;
+		_music?.Stop();
+		PlayHappySound();
 		_winAutoNextLeft = WinAutoNextDelaySeconds;
 		OnSuccess?.Invoke();
 		Log.Info( $"[MrMixTypingChallenge] Success! {WordsCompleted}/{WordsToWin}" );
@@ -196,6 +302,8 @@ public sealed class MrMixTypingChallengeHud : PanelComponent
 	private void Fail()
 	{
 		_state = ChallengeState.Lost;
+		_music?.Stop();
+		PlayLossSound();
 		OnFail?.Invoke();
 		Log.Info( $"[MrMixTypingChallenge] Fail! {WordsCompleted}/{WordsToWin}" );
 	}

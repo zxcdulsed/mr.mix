@@ -79,8 +79,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -121,12 +126,16 @@
         },
         {
           "__type": "MrMix6.MrMixTypingChallengeHud",
-          "__guid": "262c152b-8026-45d4-81ce-f80b2465adfc",
+          "__guid": "84ce453b-74d9-4067-83e7-39e5dc5aad1b",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 6",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
+          "MrMixLaughEvent": "sounds/music/laugh.sound",
+          "MusicEvent": "sounds/music/levels.sound",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -136,7 +145,9 @@
           "OnFail": null,
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
+          "ScareBackgroundTexture": "/ui/images/mr_mix_scary.png",
           "TimeLimitSeconds": 700,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
           "WordPool": [
             "pepper",
             "banana",
@@ -166,7 +177,7 @@
             "powergranate",
             "pine"
           ],
-          "WordsToWin": 300
+          "WordsToWin": 500
         }
       ],
       "Children": []
@@ -187,13 +198,17 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "40db3503-91f6-412b-9c8e-42c988f4de3a"
+          "$blob": "15484eb2-e9d7-4a47-8b7d-6ba590825a6b"
         }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },

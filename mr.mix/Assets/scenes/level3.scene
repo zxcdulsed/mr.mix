@@ -79,8 +79,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -121,12 +126,15 @@
         },
         {
           "__type": "MrMix3.MrMixTypingChallengeHud",
-          "__guid": "2df3b0a1-9afa-460a-98aa-643c5b221617",
+          "__guid": "623f3f17-8cc0-4b1b-9008-c857ed6abc9c",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 3",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
+          "MusicEvent": "sounds/music/levels.sound",
           "NextLevelScenePath": "scenes/level4.scene",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -138,6 +146,7 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 60,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
           "WinAutoNextDelaySeconds": 5,
           "WordPool": [
             "pepper",
@@ -179,12 +188,16 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "1c869678-d3d1-47fe-bf01-d64bf9d9c292"
+          "$blob": "f4887076-717f-478f-9d72-2f890295e6b6"
         }
       }
     }

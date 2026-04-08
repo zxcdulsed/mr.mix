@@ -79,8 +79,13 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "ShadowBias": 0.0005,
+          "ShadowCascadeCount": 4,
+          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0"
+          "SkyColor": "0,0,0,0",
+          "Visualizer": {}
         }
       ],
       "Children": []
@@ -121,12 +126,15 @@
         },
         {
           "__type": "MrMix4.MrMixTypingChallengeHud",
-          "__guid": "c8fac28b-4278-4ade-b670-565c850485cd",
+          "__guid": "f86382b0-64af-4af3-8ec3-c9ed8d55eaa8",
           "__enabled": true,
           "Flags": 0,
-          "BackgroundTexture": "/ui/images/mrmix_clean.png",
+          "BackgroundTexture": "/ui/images/mr_mix.png",
+          "HappySoundEvent": "sounds/music/happy.sound",
           "LevelLabel": "Level 4",
+          "LossSoundEvent": "sounds/music/loss.sound",
           "MainMenuScenePath": "scenes/mainmenu.scene",
+          "MusicEvent": "sounds/music/levels.sound",
           "NextLevelScenePath": "scenes/level5.scene",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -138,7 +146,8 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 230,
-          "WinAutoNextDelaySeconds": 5,
+          "TypeSoundEvent": "sounds/music/snd_type.sound",
+          "WinAutoNextDelaySeconds": 9,
           "WordPool": [
             "pepper",
             "banana",
@@ -182,12 +191,16 @@
       "AgentStepSize": 18,
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
-      "IncludedBodies": ""
+      "IncludedBodies": "",
+      "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "b95fcc68-61d0-43b3-a2b1-624b21f31c21"
+          "$blob": "78027c15-778e-4803-8f84-ead2c70713a9"
         }
       }
     }
