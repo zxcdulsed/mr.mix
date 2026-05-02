@@ -55,7 +55,7 @@
       "Flags": 0,
       "Name": "Directional Light",
       "Position": "0,0,200",
-      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
+      "Rotation": "-0.245984197,0.593858182,0.293152511,0.707732677",
       "Scale": "1,1,1",
       "Tags": "light_directional,light",
       "Enabled": true,
@@ -126,9 +126,10 @@
         },
         {
           "__type": "MrMix.MrMixMainMenuHud",
-          "__guid": "fdda8f89-db22-43bd-a032-4d95b01f55a3",
+          "__guid": "8292b55f-8d74-4495-820f-b4bdbe06fc7f",
           "__enabled": true,
           "Flags": 0,
+          "BackgroundTexture": "/ui/images/mr_mix_menu.png",
           "MusicEvent": "sounds/music/menu.sound",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -157,15 +158,21 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": "",
+      "DeferGeneration": false,
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "2a98162d-0127-4946-a453-dcc17b896fd9"
+        }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }

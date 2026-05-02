@@ -55,7 +55,7 @@
       "Flags": 0,
       "Name": "Directional Light",
       "Position": "0,0,200",
-      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
+      "Rotation": "-0.245984197,0.593858182,0.293152511,0.707732677",
       "Scale": "1,1,1",
       "Tags": "light_directional,light",
       "Enabled": true,
@@ -95,7 +95,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "Screen",
-      "Position": "256.4828,12.09935,95.06816",
+      "Position": "256.482788,12.09935,95.068161",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -126,7 +126,7 @@
         },
         {
           "__type": "MrMix3.MrMixTypingChallengeHud",
-          "__guid": "623f3f17-8cc0-4b1b-9008-c857ed6abc9c",
+          "__guid": "7cf20bf9-b11b-4ebf-83d3-340bcf2a84ef",
           "__enabled": true,
           "Flags": 0,
           "BackgroundTexture": "/ui/images/mr_mix.png",
@@ -147,7 +147,7 @@
           "RetryScenePath": "scenes/level1.scene",
           "TimeLimitSeconds": 60,
           "TypeSoundEvent": "sounds/music/snd_type.sound",
-          "WinAutoNextDelaySeconds": 5,
+          "WinAutoNextDelaySeconds": 9,
           "WordPool": [
             "pepper",
             "banana",
@@ -189,15 +189,21 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": "",
+      "DeferGeneration": false,
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "f4887076-717f-478f-9d72-2f890295e6b6"
+        }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }
