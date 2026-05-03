@@ -1,7 +1,7 @@
 {
   "Title": "mr.mix",
   "Type": "game",
-  "Org": "newtsifry",
+  "Org": "local",
   "Ident": "mr_mix",
   "Schema": 1,
   "IncludeSourceFiles": false,
