@@ -55,7 +55,7 @@
       "Flags": 0,
       "Name": "Directional Light",
       "Position": "0,0,200",
-      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
+      "Rotation": "-0.245984197,0.593858182,0.293152511,0.707732677",
       "Scale": "1,1,1",
       "Tags": "light_directional,light",
       "Enabled": true,
@@ -126,7 +126,7 @@
         },
         {
           "__type": "MrMix6.MrMixTypingChallengeHud",
-          "__guid": "84ce453b-74d9-4067-83e7-39e5dc5aad1b",
+          "__guid": "f517a109-1292-48fa-bde3-146aff22d0c1",
           "__enabled": true,
           "Flags": 0,
           "BackgroundTexture": "/ui/images/mr_mix.png",
@@ -146,6 +146,7 @@
           "OnSuccess": null,
           "RetryScenePath": "scenes/level1.scene",
           "ScareBackgroundTexture": "/ui/images/mr_mix_scary.png",
+          "ScareMusicEvent": "sounds/music/levels_scary.sound",
           "TimeLimitSeconds": 700,
           "TypeSoundEvent": "sounds/music/snd_type.sound",
           "WordPool": [
@@ -199,6 +200,7 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": "",
+      "DeferGeneration": false,
       "CustomBounds": false
     },
     "GameObjectSystems": {
@@ -209,6 +211,11 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },

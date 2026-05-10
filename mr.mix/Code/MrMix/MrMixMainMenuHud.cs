@@ -6,9 +6,11 @@ namespace MrMix;
 
 public sealed class MrMixMainMenuHud : PanelComponent
 {
-	[Property] public string MusicEvent { get; set; } = "sounds/music/menu.sound"; // Моя музыка
+	[Property] public string BackgroundTexture { get; set; } = "/ui/images/mr_mix_menu.png";
+	[Property] public string MusicEvent { get; set; } = "sounds/music/menu.sound";
 
-	private SoundHandle _music;
+	private SoundHandle? _music;
+	private Image _bg;
 	private Panel _root;
 	private StartButton _startButton;
 
@@ -26,7 +28,16 @@ public sealed class MrMixMainMenuHud : PanelComponent
 		_root.Style.Left = 0;
 		_root.Style.Top = 0;
 
-		_root.Style.BackgroundColor = new Color( 0, 0, 0, 0.85f );
+		_bg = new Image
+		{
+			Parent = _root
+		};
+		_bg.Style.Width = Length.Percent( 100 );
+		_bg.Style.Height = Length.Percent( 100 );
+		_bg.Style.Position = PositionMode.Absolute;
+		_bg.Style.Left = 0;
+		_bg.Style.Top = 0;
+		_bg.SetTexture( BackgroundTexture );
 
 		_startButton = new StartButton( "START" )
 		{
@@ -35,24 +46,33 @@ public sealed class MrMixMainMenuHud : PanelComponent
 
 		_startButton.Style.Width = 320;
 		_startButton.Style.Height = 84;
-
 		_startButton.Style.Position = PositionMode.Absolute;
-		_startButton.Style.Left = Length.Percent( 50 );
-		_startButton.Style.Top = Length.Percent( 60 );
+		_startButton.Style.Left = Length.Percent( 23 );
+		_startButton.Style.Top = Length.Percent( 90 );
 		_startButton.Style.MarginLeft = -160;
 		_startButton.Style.MarginTop = -42;
 
 		_startButton.Clicked += OnStartClicked;
 
-		TryPlayMenuMusic();
+		PlayMusic();
+	}
+
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+
+		if ( _music == null || !_music.IsValid || !_music.IsPlaying )
+		{
+			PlayMusic();
+		}
 	}
 
 	private void OnStartClicked()
 	{
-		Game.ActiveScene.LoadFromFile( "scenes/level1.scene" ); // Вот тут мы начинаем играть
+		Game.ActiveScene.LoadFromFile( "scenes/level1.scene" );
 	}
 
-	private void TryPlayMenuMusic()
+	private void PlayMusic()
 	{
 		if ( string.IsNullOrWhiteSpace( MusicEvent ) )
 		{
@@ -64,7 +84,9 @@ public sealed class MrMixMainMenuHud : PanelComponent
 		{
 			Sound.Preload( MusicEvent );
 
-			_music = Sound.Play( MusicEvent, 0.25f ); // перезагрузка музыки не работает
+			_music?.Stop();
+			_music = Sound.Play( MusicEvent, 0.25f );
+
 			Log.Info( $"Menu music started: {MusicEvent}" );
 		}
 		catch ( Exception e )
@@ -75,11 +97,7 @@ public sealed class MrMixMainMenuHud : PanelComponent
 
 	protected override void OnDestroy()
 	{
-		if ( _music.IsValid )
-		{
-			_music.Stop( 0.25f );
-		}
-
+		_music?.Stop( 0.25f );
 		base.OnDestroy();
 	}
 
@@ -94,7 +112,6 @@ public sealed class MrMixMainMenuHud : PanelComponent
 			Style.PointerEvents = PointerEvents.All;
 			Style.Cursor = "pointer";
 
-			//Временная кнопочка, сделаем мы ее по красивее потом.
 			Style.BackgroundColor = new Color( 0.15f, 0.15f, 0.15f, 0.95f );
 			Style.BorderTopLeftRadius = 10;
 			Style.BorderTopRightRadius = 10;
